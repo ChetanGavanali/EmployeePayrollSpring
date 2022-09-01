@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/employee")
 @RestController
 public class EmployeeController {
-
     @Autowired
     IEmployeeService iEmployeeService;
 

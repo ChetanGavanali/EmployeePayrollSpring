@@ -16,7 +16,6 @@ import javax.validation.Valid;
 public class EmployeeController {
     @Autowired
     IEmployeeService iEmployeeService;
-
     @PostMapping("/post")
     public ResponseEntity<ResponseDTO> createEmployees(@Valid @RequestBody EmployeeDTO employeeDTO) {
         Employee employee1 = new Employee(employeeDTO);

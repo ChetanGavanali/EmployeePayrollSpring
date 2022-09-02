@@ -5,11 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,17 +15,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
     public String fullName;
     public String profilePic;
     public String gender;
-    public String department;
+    @ElementCollection
+    @CollectionTable(name = "department", joinColumns = @JoinColumn(name = "id"))
+    public List<String> department;
     public int salary;
     public String mobileNumber;
     public LocalDate startDate;
     public String notes;
-
     public Employee(int id, EmployeeDTO employeeDTO) {
         this.id = id;
         this.fullName = employeeDTO.fullName;
@@ -40,6 +39,10 @@ public class Employee {
         this.startDate = employeeDTO.startDate;
     }
 
+    /**
+     * Constructor: Using employeeDTO
+     * @param employeeDTO - employeeDTO object.
+     */
     public Employee(EmployeeDTO employeeDTO) {
         this.fullName = employeeDTO.fullName;
         this.profilePic = employeeDTO.profilePic;

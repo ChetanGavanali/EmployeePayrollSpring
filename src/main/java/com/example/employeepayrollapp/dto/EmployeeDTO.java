@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.JoinColumn;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +21,9 @@ public class EmployeeDTO {
     public String profilePic;
     @NotBlank
     public String gender;
-    public String department;
+    @ElementCollection
+    @CollectionTable(name = "department", joinColumns = @JoinColumn(name = "id"))
+    public List<String> department;
     @Min(value = 5000, message = "salary cannot be less than 5000.")
     @Max(value = 500000, message = "Salary cannot be greater than 500000.")
     public int salary;

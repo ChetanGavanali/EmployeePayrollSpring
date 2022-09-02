@@ -13,8 +13,13 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ResponseDTO> handleNonExistingID(CustomException exception) {
+        ResponseDTO responseDTO = new ResponseDTO("Exception while parsing Rest request", exception.getMessage());
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.BAD_REQUEST);
+    }
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ResponseDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ResponseDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
         List<ObjectError> errorList = exception.getBindingResult().getAllErrors();
         List<String> errorMessage = errorList.stream().map(objectError -> objectError.getDefaultMessage())
                 .collect(Collectors.toList());

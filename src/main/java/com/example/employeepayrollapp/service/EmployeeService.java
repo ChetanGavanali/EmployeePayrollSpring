@@ -13,13 +13,14 @@ import java.util.Optional;
 public class EmployeeService implements IEmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
+
     public Employee addEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
+
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
-
     public Optional<Employee> getById(int id) {
         return employeeRepository.findById(id);
     }
@@ -30,12 +31,13 @@ public class EmployeeService implements IEmployeeService {
             return "Employee with ID: " + id + " is Deleted Successfully!!";
         } else return "No employee was found with given id.";
     }
-    public String editEmployee(EmployeeDTO employeeDTO, int id) {
+    public Employee editEmployee(EmployeeDTO employeeDTO, int id) {
         if (employeeRepository.findById(id).isPresent()) {
             Employee employee1 = new Employee(id, employeeDTO);
-            Employee alpha = employeeRepository.save(employee1);
-            return "This is the result"+ alpha;
-        } else throw new RuntimeException();
+            Employee employee = employeeRepository.save(employee1);
+            return employee;
+        }
 
+        return null;
     }
 }

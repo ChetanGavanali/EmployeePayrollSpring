@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
     public String fullName;
     public String profilePic;
@@ -27,7 +27,6 @@ public class Employee {
     public String mobileNumber;
     public LocalDate startDate;
     public String notes;
-
     public Employee(int id, EmployeeDTO employeeDTO) {
         this.id = id;
         this.fullName = employeeDTO.fullName;
@@ -39,7 +38,6 @@ public class Employee {
         this.salary = employeeDTO.salary;
         this.startDate = employeeDTO.startDate;
     }
-
     public Employee(EmployeeDTO employeeDTO) {
         this.fullName = employeeDTO.fullName;
         this.profilePic = employeeDTO.profilePic;
